@@ -134,28 +134,28 @@ Todas as rotas da API possuem o prefixo `/api`.
 
 ## Comandos Úteis
 
-
-### Ver logs
+```bash
+# Ver logs
 docker-compose logs -f
 
-### Parar os containers
+# Parar os containers
 docker-compose down
 
-### Parar e remover volumes (CUIDADO: apaga o banco!)
+# Parar e remover volumes (CUIDADO: apaga o banco!)
 docker-compose down -v
 
-### Acessar o container da aplicação
+# Acessar o container da aplicação
 docker-compose exec app bash
 
-### Rodar comandos Artisan
+# Rodar comandos Artisan
 docker-compose exec app php artisan [comando]
 
-### Rodar Composer
+# Rodar Composer
 docker-compose exec app composer [comando]
 
-### Acessar o PostgreSQL
+# Acessar o PostgreSQL
 docker-compose exec db psql -U laravel_user -d laravel_db
-
+```
 
 ## Portas
 
