@@ -37,16 +37,22 @@ DB_PASSWORD=laravel_password
 ## 2. Iniciar os containers:
 
 ### construir e iniciar os containers
+```bash
 docker-compose up -d --build
-
+```
 ### Instalar dependências do Laravel
+```bash
 docker-compose exec app composer install
-
+```
 # Gerar a chave da aplicação
+```bash
 docker-compose exec app php artisan key:generate
+```
 
 # Rodar as migrations
+```bash
 docker-compose exec app php artisan migrate
+```
 
 ### 5. Acessar a aplicação:
 
