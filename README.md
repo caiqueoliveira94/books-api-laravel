@@ -72,6 +72,17 @@ Todas as rotas da API possuem o prefixo `/api`.
 | `/refresh` | `POST` | Atualiza o token do usuário | Sim (Sanctum) |
 | `/me` | `GET` | Retorna os dados do usuário logado | Sim (Sanctum) |
 
+### Livros
+
+| Endpoint | Método | Descrição | Protegido |
+| :------- | :----- | :--------- | :-------- |
+| `/books` | `GET` | Lista todos os livros | Sim (Sanctum) |
+| `/books` | `POST` | Cadastra um novo livro | Sim (Sanctum) |
+| `/books/{id}` | `GET` | Retorna os detalhes de um livro | Sim (Sanctum) |
+| `/books/{id}` | `PUT` | Atualiza os dados de um livro | Sim (Sanctum) |
+| `/books/{id}` | `DELETE` | Remove um livro | Sim (Sanctum) |
+
+
 #### Detalhes dos Endpoints
 
 **1. Registro (`POST /api/register`)**
@@ -138,6 +149,90 @@ Todas as rotas da API possuem o prefixo `/api`.
   }
   ```
 
+**6. Listar Livros (`GET /api/books`)**
+- **Header:** `Authorization: Bearer {token}`
+- **Resposta (200 OK):**
+  ```json
+  [
+    {
+      "id": 1,
+      "google_books_id": "v3bQDwAAQBAJ",
+      "title": "O Senhor dos Anéis",
+      "author": "J.R.R. Tolkien",
+      "total_pages": 1200,
+      "publication_year": 1954,
+      "category": "Fantasy",
+      "cover_image": "http://...",
+      "description": "Uma grande aventura..."
+    }
+  ]
+  ```
+
+**7. Cadastrar Livro (`POST /api/books`)**
+- **Header:** `Authorization: Bearer {token}`
+- **Body:**
+  ```json
+  {
+    "google_books_id": "v3bQDwAAQBAJ",
+    "title": "O Senhor dos Anéis",
+    "author": "J.R.R. Tolkien",
+    "total_pages": 1200,
+    "publication_year": 1954,
+    "category": "Fantasy",
+    "cover_image": "http://...",
+    "description": "Uma grande aventura..."
+  }
+  ```
+- **Resposta (201 Created):**
+  ```json
+  {
+    "id": 1,
+    "google_books_id": "v3bQDwAAQBAJ",
+    "title": "O Senhor dos Anéis",
+    "author": "J.R.R. Tolkien",
+    ...
+  }
+  ```
+
+**8. Detalhes do Livro (`GET /api/books/{id}`)**
+- **Header:** `Authorization: Bearer {token}`
+- **Resposta (200 OK):**
+  ```json
+  {
+    "id": 1,
+    "google_books_id": "v3bQDwAAQBAJ",
+    "title": "O Senhor dos Anéis",
+    ...
+  }
+  ```
+
+**9. Atualizar Livro (`PUT /api/books/{id}`)**
+- **Header:** `Authorization: Bearer {token}`
+- **Body:** (campos opcionais)
+  ```json
+  {
+    "title": "O Senhor dos Anéis - Edição Especial"
+  }
+  ```
+- **Resposta (200 OK):**
+  ```json
+  {
+    "id": 1,
+    "title": "O Senhor dos Anéis - Edição Especial",
+    ...
+  }
+  ```
+
+**10. Remover Livro (`DELETE /api/books/{id}`)**
+- **Header:** `Authorization: Bearer {token}`
+- **Resposta (200 OK):**
+  ```json
+  {
+    "message": "Book deleted successfully"
+  }
+  ```
+
+
 ## Comandos Úteis
 
 ```bash
@@ -147,17 +242,11 @@ docker-compose logs -f
 # Parar os containers
 docker-compose down
 
-# Parar e remover volumes (CUIDADO: apaga o banco!)
+# Parar e remover volumes (apaga o banco)
 docker-compose down -v
 
 # Acessar o container da aplicação
 docker-compose exec app bash
-
-# Rodar comandos Artisan
-docker-compose exec app php artisan [comando]
-
-# Rodar Composer
-docker-compose exec app composer [comando]
 
 # Acessar o PostgreSQL
 docker-compose exec db psql -U laravel_user -d laravel_db
@@ -175,8 +264,6 @@ docker-compose exec db psql -U laravel_user -d laravel_db
 - **Database**: laravel_db
 - **Usuário**: laravel_user
 - **Senha**: laravel_password
-
-## Troubleshooting
 
 ### Erro de permissão em storage/
 
