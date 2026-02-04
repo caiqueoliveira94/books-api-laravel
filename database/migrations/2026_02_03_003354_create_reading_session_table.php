@@ -13,7 +13,7 @@ class CreateReadingSessionTable extends Migration
      */
     public function up()
     {
-        Schema::create('reading_session', function (Blueprint $table) {
+        Schema::create('reading_sessions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('book_id')->constrained()->onDelete('cascade');
@@ -37,6 +37,6 @@ class CreateReadingSessionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reading_session');
+        Schema::dropIfExists('reading_sessions');
     }
 }

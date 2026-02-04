@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\ReadingSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -26,4 +26,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
 
     Route::apiResource('books', BookController::class);
+    Route::apiResource('reading-session', ReadingSessionController::class);
 });
